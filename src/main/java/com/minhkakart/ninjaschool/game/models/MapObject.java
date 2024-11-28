@@ -24,17 +24,18 @@ public class MapObject implements Drawable {
     private WaterAnimation waterAnimation2 = new WaterAnimation(new Point(97 * PART_WIDTH, 18 * PART_HEIGHT), 12);
     private WaterFallAnimation waterFallAnimation1 = new WaterFallAnimation(new Point(100 * PART_WIDTH, 14 * PART_HEIGHT),
             new Point[]{
-                    new Point(100 * PART_WIDTH, 15 * PART_HEIGHT),
-//                    new Point(100 * PART_WIDTH, 16 * PART_HEIGHT),
-//                    new Point(100 * PART_WIDTH, 17 * PART_HEIGHT),
-//                    new Point(100 * PART_WIDTH, 18 * PART_HEIGHT)
+                    new Point(100 * PART_WIDTH, 15 * PART_HEIGHT)
             });
     private WaterFallAnimation waterFallAnimation2 = new WaterFallAnimation(new Point(100 * PART_WIDTH, 16 * PART_HEIGHT),
             new Point[]{
-//                    new Point(100 * PART_WIDTH, 15 * PART_HEIGHT),
-//                    new Point(100 * PART_WIDTH, 16 * PART_HEIGHT),
                     new Point(100 * PART_WIDTH, 17 * PART_HEIGHT),
                     new Point(100 * PART_WIDTH, 18 * PART_HEIGHT)
+            });
+    private WaterFallAnimation waterFallAnimation3 = new WaterFallAnimation(new Point(104 * PART_WIDTH, 14 * PART_HEIGHT),
+            new Point[]{
+                    new Point(104 * PART_WIDTH, 15 * PART_HEIGHT),
+                    new Point(104 * PART_WIDTH, 17 * PART_HEIGHT),
+                    new Point(104 * PART_WIDTH, 18 * PART_HEIGHT)
             });
 
     private Point startPoint;
@@ -98,6 +99,7 @@ public class MapObject implements Drawable {
         waterAnimation2.move(dx, dy);
         waterFallAnimation1.move(dx, dy);
         waterFallAnimation2.move(dx, dy);
+        waterFallAnimation3.move(dx, dy);
     }
 
     @Override
@@ -107,6 +109,7 @@ public class MapObject implements Drawable {
         }
         waterFallAnimation1.draw(graphics2D);
         waterFallAnimation2.draw(graphics2D);
+        waterFallAnimation3.draw(graphics2D);
         for (int i = 0; i < viewData.length; i++) {
             for (int j = 0; j < viewData[i].length; j++) {
                 if (VIEW_RECT.contains(new Point(j * PART_WIDTH + startPoint.x, i * PART_HEIGHT + startPoint.y))) {
