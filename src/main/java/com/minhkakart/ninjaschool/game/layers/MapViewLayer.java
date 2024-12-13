@@ -1,7 +1,7 @@
 package com.minhkakart.ninjaschool.game.layers;
 
 import com.minhkakart.ninjaschool.game.enums.LayerDepth;
-import com.minhkakart.ninjaschool.game.enums.MapId;
+import com.minhkakart.ninjaschool.game.enums.MapInfo;
 import com.minhkakart.ninjaschool.game.models.MapObject;
 import com.minhkakart.ninjaschool.game.supports.ScaleSupporter;
 
@@ -14,7 +14,7 @@ public class MapViewLayer extends GameLayer {
     
     public MapViewLayer() {
         super(LayerDepth.MAP_VIEW);
-        mapObject = MapObject.loadMapObject(MapId.TONE_VILLAGE);
+        mapObject = MapObject.loadMap(MapInfo.TONE_VILLAGE);
     }
 
     @Override

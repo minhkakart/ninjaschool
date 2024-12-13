@@ -3,10 +3,11 @@ package com.minhkakart.ninjaschool.game.layers;
 import com.minhkakart.ninjaschool.game.enums.LayerDepth;
 import com.minhkakart.ninjaschool.game.interfaces.Drawable;
 import com.minhkakart.ninjaschool.game.interfaces.InputListener;
-import com.minhkakart.ninjaschool.game.supports.ScaleSupporter;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +18,12 @@ public class GameLayer implements Comparable<GameLayer>, Drawable, InputListener
 
     private LayerDepth depth;
     private String name;
+    private boolean transparent;
 
     public GameLayer() {
         depth = LayerDepth.DEFAULT;
         name = "Layer " + depth;
+        transparent = false;
     }
 
     public GameLayer(LayerDepth depth) {
@@ -41,7 +44,15 @@ public class GameLayer implements Comparable<GameLayer>, Drawable, InputListener
         return depth;
     }
     
-    protected void addInputListener(InputListener ...inputListener) {
+    public boolean isTransparent() {
+        return transparent;
+    }
+    
+    public void setTransparent(boolean transparent) {
+        this.transparent = transparent;
+    }
+
+    protected void addInputListener(InputListener... inputListener) {
         Collections.addAll(inputListeners, inputListener);
     }
 
@@ -61,56 +72,56 @@ public class GameLayer implements Comparable<GameLayer>, Drawable, InputListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-        inputListeners.forEach(listener -> listener.keyTyped(e));
+        inputListeners.parallelStream().forEach(listener -> listener.keyTyped(e));
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        inputListeners.forEach(listener -> listener.keyPressed(e));
+        inputListeners.parallelStream().forEach(listener -> listener.keyPressed(e));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        inputListeners.forEach(listener -> listener.keyReleased(e));
+        inputListeners.parallelStream().forEach(listener -> listener.keyReleased(e));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseClicked(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseClicked(e));
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mousePressed(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mousePressed(e));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseReleased(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseReleased(e));
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseEntered(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseEntered(e));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseExited(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseExited(e));
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseDragged(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseDragged(e));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        inputListeners.forEach(listener -> listener.mouseMoved(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseMoved(e));
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        inputListeners.forEach(listener -> listener.mouseWheelMoved(e));
+        inputListeners.parallelStream().forEach(listener -> listener.mouseWheelMoved(e));
     }
 }

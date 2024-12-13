@@ -17,26 +17,25 @@ import java.util.List;
 public class StartLayer extends GameLayer {
     private final List<TextView> textViews = new ArrayList<>();
     private final int centerHorizontal = (GlobalConfig.ORIGINAL_WIDTH - ButtonSize.START_BUTTON.getWidth()) / 2;
-    
-    private static final TextView newGameButton = new TextView("Chơi mới");
-    private static final TextView continueButton = new TextView("Map");
-    private static final TextView exitButton = new TextView("Thoát");
-    
+
     private int selectedButtonIndex = -1;
     
-    static {
-        newGameButton.setActionListener(e -> System.out.println("New game button clicked"));
-        
+    public StartLayer() {
+        super(LayerDepth.START);
+        TextView newGameButton = new TextView("Chơi mới");
+        newGameButton.setActionListener(e -> {
+            LayerManager.removeLayer(this);
+            LayerManager.addLayer(new MapViewLayer());
+        });
+
+        TextView continueButton = new TextView("Map");
         continueButton.setActionListener(e -> LayerManager.addLayer(new WorldMapLayer()));
-        
+
+        TextView exitButton = new TextView("Thoát");
         exitButton.setActionListener(e -> {
             System.out.println("Exiting...");
             GameFrame.mainPanel.Exit();
         });
-    }
-    
-    public StartLayer() {
-        super(LayerDepth.START);
         addButtons(newGameButton, continueButton, exitButton);
     }
     

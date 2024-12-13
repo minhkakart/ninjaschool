@@ -6,6 +6,7 @@ import com.minhkakart.ninjaschool.game.layers.GameLayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class LayerManager {
@@ -43,13 +44,24 @@ public class LayerManager {
         }
     }
 
-    public static InputListener getActiveListener() {
+    public static List<InputListener> getActiveListeners() {
         synchronized (lock) {
+            List<InputListener> listeners = new ArrayList<>();
             if (!layers.isEmpty()) {
-                return layers.get(layers.size() - 1);
-            } else {
-                return GameLayer.getInstance();
+                getListener(listeners, layers.size() - 1);
             }
+            return listeners;
+        }
+    }
+
+    private static void getListener(List<InputListener> listeners, int index) {
+        if (index > layers.size() || index < 0) return;
+
+        GameLayer layer = layers.get(index);
+        listeners.add(layer);
+
+        if (layer.isTransparent()) {
+            getListener(listeners, index - 1);
         }
     }
 

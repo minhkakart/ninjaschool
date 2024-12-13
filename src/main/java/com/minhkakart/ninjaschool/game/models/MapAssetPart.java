@@ -2,14 +2,21 @@ package com.minhkakart.ninjaschool.game.models;
 
 import com.minhkakart.ninjaschool.game.managers.ResourceManager;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapAssetPart {
-    public static final int PART_WIDTH = 24;
-    public static final int PART_HEIGHT = 24;
+    public static final int MAP_PART_WIDTH = 24;
+    public static final int MAP_PART_HEIGHT = 24;
+    
+    private static final Map<Integer, BufferedImage> PART_CACHE = new HashMap<>();
     
     public static BufferedImage GetPartImage(int assetId) {
+        if (PART_CACHE.containsKey(assetId)) {
+            return PART_CACHE.get(assetId);
+        }
+
         int partNumber = assetId % 1000;
         int assetNumber = (assetId - partNumber) / 1000;
         BufferedImage src = null;
@@ -37,6 +44,8 @@ public class MapAssetPart {
             return null;
         }
         
-        return src.getSubimage(0, (partNumber - 1) * PART_HEIGHT, PART_WIDTH, PART_HEIGHT);
+        PART_CACHE.put(assetId, src.getSubimage(0, (partNumber - 1) * MAP_PART_HEIGHT, MAP_PART_WIDTH, MAP_PART_HEIGHT));
+        
+        return PART_CACHE.get(assetId);
     }
 }

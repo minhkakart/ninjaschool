@@ -18,20 +18,21 @@ import java.awt.geom.AffineTransform;
 public class GamePanel extends JPanel implements InputListener {
     /* Count FPS
     private static int FPS_COUNT;
-    private static long FPS_TIME;*/
-    
+    private static long FPS_TIME;
+    */
+
     public GamePanel() {
         setLayout(null);
         setFocusable(true);
         setPreferredSize(new Dimension(GlobalConfig.GAME_WIDTH, GlobalConfig.GAME_HEIGHT));
-//        LayerManager.addLayer(new BackgroundLayer(), new StartLayer());
-        LayerManager.addLayer(new BackgroundLayer(), new MapViewLayer());
-        
+        LayerManager.addLayer(new BackgroundLayer(), new StartLayer());
+//        LayerManager.addLayer(new BackgroundLayer(), new MapViewLayer());
+
         addKeyListener(this);
         addMouseListener(this);
         addMouseWheelListener(this);
         addMouseMotionListener(this);
-        
+
         start();
     }
 
@@ -52,9 +53,11 @@ public class GamePanel extends JPanel implements InputListener {
                 repaint();
                 FPS_COUNT++;
             }
-        }).start();*/
+        }).start();
+        */
+
     }
-    
+
     public void Exit() {
         System.out.println("Exited!");
         System.exit(0);
@@ -69,63 +72,63 @@ public class GamePanel extends JPanel implements InputListener {
         g2d.setTransform(transform);
 
         // Draw game here
-        for (GameLayer layer: LayerManager.getLayers()){
+        for (GameLayer layer : LayerManager.getLayers()) {
             layer.draw(g2d);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        LayerManager.getActiveListener().mouseClicked(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseClicked(e));
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        LayerManager.getActiveListener().mousePressed(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mousePressed(e));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        LayerManager.getActiveListener().mouseReleased(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseReleased(e));
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        LayerManager.getActiveListener().mouseEntered(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseEntered(e));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        LayerManager.getActiveListener().mouseExited(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseExited(e));
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        LayerManager.getActiveListener().keyTyped(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.keyTyped(e));
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        LayerManager.getActiveListener().keyPressed(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.keyPressed(e));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        LayerManager.getActiveListener().keyReleased(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.keyReleased(e));
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        LayerManager.getActiveListener().mouseDragged(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseDragged(e));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        LayerManager.getActiveListener().mouseMoved(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseMoved(e));
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        LayerManager.getActiveListener().mouseWheelMoved(e);
+        LayerManager.getActiveListeners().parallelStream().forEach(listener -> listener.mouseWheelMoved(e));
     }
 }
